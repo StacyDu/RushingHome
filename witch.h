@@ -12,6 +12,7 @@ protected:
 
 private:
     float scale = 4.0;
+    Texture2D witch_texture{LoadTexture("textures/Blue_witch/B_witch_idle.png")};
     Texture2D witch_idle{LoadTexture("textures/Blue_witch/B_witch_idle.png")};
     Texture2D witch_run{LoadTexture("textures/Blue_witch/B_witch_run.png")};
     Vector2 witchPos{};
@@ -28,6 +29,10 @@ private:
     float updateTime{1.f/12.f};
     Vector2 velocity{};
     float speed{5.0f};
+    // jump
+    int gravity{5};
+    const int jumpVel{-10};
+    bool isInAir{};
 
     int windowWidth{};
     int windowHeight{};
