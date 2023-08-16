@@ -6,12 +6,14 @@ class witch
 public:
     witch(int winWidth, int winHeight);
     void tick(float deltaTime);
-    virtual Vector2 getScreenPos();
+    virtual Vector2 getBeginScreenPos();
+    void undoMovement();
+    Rectangle getCollisionRec();
 
 protected:
 
 private:
-    float scale = 4.0;
+    float scale = 2.5;
     Texture2D witch_texture{LoadTexture("textures/Blue_witch/B_witch_idle.png")};
     Texture2D witch_idle{LoadTexture("textures/Blue_witch/B_witch_idle.png")};
     Texture2D witch_run{LoadTexture("textures/Blue_witch/B_witch_run.png")};
@@ -27,12 +29,9 @@ private:
     float rightLeft{1.f};
     float runningTime{};
     float updateTime{1.f/12.f};
-    Vector2 velocity{};
+    Vector2 direction{};
     float speed{5.0f};
-    // jump
-    int gravity{5};
-    const int jumpVel{-10};
-    bool isInAir{};
+
 
     int windowWidth{};
     int windowHeight{};
