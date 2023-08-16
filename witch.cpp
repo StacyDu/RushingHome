@@ -16,7 +16,7 @@ witch::witch(int winWidth, int winHeight) :
 Vector2 witch::getBeginScreenPos()
 {
     return Vector2{
-        static_cast<float>(windowWidth)/2 - scale * width,
+        static_cast<float>(windowWidth)/3 - scale * width,
         static_cast<float>(windowHeight) - scale * height
     };
 }
@@ -32,7 +32,6 @@ void witch::tick(float deltaTime)
         runningTime = 0.0f;
         if (frame > maxFrames) frame = 0;
     }
-    
     // move
     if (IsKeyDown(KEY_A)) direction.x -=1;
     if (IsKeyDown(KEY_D)) direction.x +=1;
