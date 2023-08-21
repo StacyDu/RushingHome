@@ -18,40 +18,54 @@ Vector2 witch::getBeginScreenPos()
     return Vector2{
         static_cast<float>(windowWidth)/3 - scale * width,
         static_cast<float>(windowHeight) - scale * height
-    };
+    };    
+}
+
+bool witch::isOnGround()
+{
+    return witchPos.y <= 1;
 }
 
 void witch::tick(float deltaTime)
 {
-    worldLastFramePos = worldPos;
-    // animation
-    runningTime += deltaTime;
-    if (runningTime >= updateTime)
+    if (!isInAir)
     {
-        frame++;
-        runningTime = 0.0f;
-        if (frame > maxFrames) frame = 0;
+        worldLastFramePos = worldPos;
+        // animation
+        runningTime += deltaTime;
+        if (runningTime >= updateTime)
+        {
+            frame++;
+            runningTime = 0.0f;
+            if (frame > maxFrames) frame = 0;
+        } 
     }
+    
+    if (isOnGround())
+    {
+        velocity = 0;
+        isInAir = false;
+    }
+    else
+    {
+        velocity -= gravity * deltaTime;
+        isInAir = true;
+    }
+
     // move
     if (IsKeyDown(KEY_A)) direction.x -=1;
     if (IsKeyDown(KEY_D)) direction.x +=1;
     // jump
-    if (IsKeyPressed(KEY_W)) 
+    if (IsKeyPressed(KEY_W) && !isInAir) 
     {
-        while (witchPos.y < 100)
+        direction.y -= 1;
+        if (witchPos.y < 100)
         {
-            witchPos.y += 10;
-        }
+            velocity += jumpVel;
+        } 
     }
     
-    if (IsKeyReleased(KEY_W))
-    {
-        while (witchPos.y > 0)
-        {
-            witchPos.y = 0.0; 
-        }        
-    }
-    
+    witchPos.y += velocity * deltaTime;
     // check direction magnitude
     if (Vector2Length(direction) != 0.0)
     {   
@@ -71,7 +85,7 @@ void witch::tick(float deltaTime)
     Rectangle dest{getBeginScreenPos().x, getBeginScreenPos().y, scale * width, scale * height};
     DrawTexturePro(witch_texture, source, dest, witchPos, 0.0, WHITE);
     // Debug
-    // DrawRectangle(dest.x, dest.y - dest.height, dest.width, dest.height, BLACK);
+    // DrawRectangle(dest.x, dest.y, dest.width, dest.height, BLACK);
     // DrawRectangle(source.x, source.y, 20, 20, RED);
 }
 
@@ -89,3 +103,4 @@ Rectangle witch::getCollisionRec()
         scale * height
     };
 }
+

@@ -9,6 +9,7 @@ public:
     virtual Vector2 getBeginScreenPos();
     void undoMovement();
     Rectangle getCollisionRec();
+    bool isOnGround();
 
 protected:
 
@@ -31,7 +32,10 @@ private:
     float updateTime{1.f/12.f};
     Vector2 direction{};
     float speed{5.0f};
-
+    float velocity{};
+    bool isInAir{};
+    float gravity{1000};
+    float jumpVel{-600};
 
     int windowWidth{};
     int windowHeight{};
