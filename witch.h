@@ -35,7 +35,7 @@ private:
     float velocity{};
     bool isInAir{};
     float gravity{1000};
-    float jumpVel{-600};
+    float jumpVel{600};
 
     int windowWidth{};
     int windowHeight{};

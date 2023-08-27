@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "raymath.h"
 #include "witch.h"
+#include "obstacle.h"
 #include <string>
 #include <iostream>
 
@@ -12,6 +13,7 @@ int main ()
     InitWindow(windowWidth, windowHeight, "Running Home Game");
 
     witch blueWitch(windowWidth, windowHeight);
+    obstacle orangeFire(windowWidth, windowHeight);
     Vector2 ground{windowWidth, windowHeight - 10};
 
     // background
@@ -94,6 +96,8 @@ int main ()
         DrawTextureEx(foreground, fg3Pos, 0.0, 2.0, WHITE);        
 
         blueWitch.tick(deltaTime);
+
+        orangeFire.tick(deltaTime);
 
         EndDrawing();
     }
