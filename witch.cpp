@@ -53,13 +53,17 @@ void witch::tick(float deltaTime)
     }
 
     // move
-    if (IsKeyDown(KEY_A)) direction.x -=1;
-    if (IsKeyDown(KEY_D)) direction.x +=1;
+    if (IsKeyDown(KEY_A)) {
+        direction.x -=1;
+    }
+    if (IsKeyDown(KEY_D)) {
+        direction.x +=1;
+    }
     // jump
     if (IsKeyPressed(KEY_W) && !isInAir) 
     {
         direction.y -= 1;
-        if (witchPos.y < 100)
+        if (witchPos.y < 50)
         {
             velocity += jumpVel;
         } 
@@ -87,7 +91,9 @@ void witch::tick(float deltaTime)
     // Debug
     // DrawRectangle(dest.x, dest.y, dest.width, dest.height, BLACK);
     // DrawRectangle(source.x, source.y, 20, 20, RED);
+
 }
+
 
 void witch::undoMovement()
 {
