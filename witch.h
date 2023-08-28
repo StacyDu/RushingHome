@@ -10,6 +10,8 @@ public:
     void undoMovement();
     Rectangle getCollisionRec();
     bool isOnGround();
+    bool isMovingRight{};
+    bool isMovingLeft{};
 
 protected:
 
@@ -35,7 +37,7 @@ private:
     float velocity{};
     bool isInAir{};
     float gravity{1000};
-    float jumpVel{600};
+    float jumpVel{500};
 
     int windowWidth{};
     int windowHeight{};

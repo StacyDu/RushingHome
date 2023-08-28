@@ -10,21 +10,53 @@ obstacle::obstacle(int winWidth, int winHeight) :
 {
     width = orangeFireTexture.width/8;
     height = orangeFireTexture.height;
-    firePos.y = winHeight - height ;
 }
 
 void obstacle::tick(float deltaTime)
 {
-    float x{};
-    x += deltaTime;
-    if (x >= 1/8)
+    worldLastFramePos = worldPos;
+    // animation
+    runningTime += deltaTime;
+    if (runningTime >= updateTime)
     {
+        //fireRec.x = frame * fireRec.width;
+        runningTime = 0.0f;
         frame++;
-        x = 0.0f;
         if (frame > maxFrames) frame = 0;
-    }
-    
-    Rectangle rec{0, 0, width * scale, height * scale};
-    DrawTextureRec(orangeFireTexture, rec, firePos, WHITE);
+    } 
 
+    // moving
+    if(IsKeyDown(KEY_A))
+    {
+        firePos.x -= 70 * deltaTime; 
+    }
+    if(IsKeyDown(KEY_W) && IsKeyDown(KEY_A))
+    {
+        firePos.x -= 35 * deltaTime; 
+    }    
+
+    if(IsKeyDown(KEY_D))
+    {
+        firePos.x += 70 * deltaTime; 
+    }
+    if(IsKeyDown(KEY_W) && IsKeyDown(KEY_D))
+    {
+        firePos.x += 35 * deltaTime; 
+    }
+     
+
+    Rectangle source{frame * width, 0.f, width, height};
+    Rectangle dest{getScreenPos().x, getScreenPos().y, scale * width, scale * height};
+    DrawTexturePro(orangeFireTexture, source, dest, firePos, 0.0, WHITE);
+    ///DrawTextureEx(orangeFireTexture, firePos, 0.0, scale, WHITE);
+    
 }
+
+Vector2 obstacle::getScreenPos()
+{
+    return Vector2{
+        300, 
+        winHeight - height * scale - 20
+    };      
+}
+
