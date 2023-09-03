@@ -28,20 +28,20 @@ void obstacle::tick(float deltaTime)
     // moving
     if(IsKeyDown(KEY_A))
     {
-        firePos.x -= 70 * deltaTime; 
+        firePos.x -= 80 * deltaTime; 
     }
     if(IsKeyDown(KEY_W) && IsKeyDown(KEY_A))
     {
-        firePos.x -= 35 * deltaTime; 
+        firePos.x -= 10 * deltaTime; 
     }    
 
     if(IsKeyDown(KEY_D))
     {
-        firePos.x += 70 * deltaTime; 
+        firePos.x += 80 * deltaTime; 
     }
     if(IsKeyDown(KEY_W) && IsKeyDown(KEY_D))
     {
-        firePos.x += 35 * deltaTime; 
+        firePos.x += 10 * deltaTime; 
     }
      
 
@@ -56,7 +56,7 @@ Vector2 obstacle::getScreenPos()
 {
     return Vector2{
         300, 
-        winHeight - height * scale - 20
+        winHeight - height * scale - 30
     };      
 }
 

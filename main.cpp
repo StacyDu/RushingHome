@@ -14,7 +14,10 @@ int main ()
 
     witch blueWitch(windowWidth, windowHeight);
     obstacle orangeFire(windowWidth, windowHeight);
-    Vector2 ground{windowWidth, windowHeight - 10};
+
+    // ground map
+    Texture2D map = LoadTexture("textures/map.png");
+    float mX{};
 
     // background
     Texture2D background = LoadTexture("textures/oak_woods_v1.0/background/background_layer_1.png");
@@ -52,6 +55,12 @@ int main ()
             {
                 fgX = 0.0;
             };
+
+            mX -= 80 * deltaTime;
+            if (mX <= -map.width * 2)
+            {
+                mX = 0.0;
+            };
         }
         else if (IsKeyDown(KEY_A))
         {
@@ -71,7 +80,13 @@ int main ()
             if (fgX >= foreground.width * 2)
             {
                 fgX = 0.0;
-            };           
+            };
+
+            mX += 80 * deltaTime;  
+            if (mX >= map.width * 2)
+            {
+                mX = 0.0;
+            };         
         }
 
         Vector2 bgPos{bgX, 0.0};
@@ -93,7 +108,14 @@ int main ()
         Vector2 fg2Pos{fgX + background.width * 2, 0.0};
         DrawTextureEx(foreground, fg2Pos, 0.0, 2.0, WHITE);
         Vector2 fg3Pos{fgX - background.width * 2, 0.0};
-        DrawTextureEx(foreground, fg3Pos, 0.0, 2.0, WHITE);        
+        DrawTextureEx(foreground, fg3Pos, 0.0, 2.0, WHITE);
+
+        Vector2 mapPos{mX, 0.0};
+        DrawTextureEx(map, mapPos, 0.0, 1, WHITE);    
+        Vector2 map2Pos{mX + map.width, 0.0};
+        DrawTextureEx(map, map2Pos, 0.0, 1, WHITE);    
+        Vector2 map3Pos{mX - map.width, 0.0};
+        DrawTextureEx(map, map3Pos, 0.0, 1, WHITE);   
 
         blueWitch.tick(deltaTime);
 

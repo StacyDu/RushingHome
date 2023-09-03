@@ -17,7 +17,7 @@ Vector2 witch::getBeginScreenPos()
 {
     return Vector2{
         static_cast<float>(windowWidth)/3 - scale * width,
-        static_cast<float>(windowHeight) - scale * height
+        static_cast<float>(windowHeight) - scale * height - 10
     };    
 }
 
